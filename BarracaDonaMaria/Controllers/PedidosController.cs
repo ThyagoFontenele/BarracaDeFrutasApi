@@ -1,6 +1,6 @@
 ﻿using BarracaDonaMaria.Domain.Entities;
 using BarracaDonaMaria.Domain.Repositories;
-using BarracaDonaMaria.Infrastructure.Services;
+using BarracaDonaMaria.Domain.Specifications.PedidoSpecification;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BarracaDonaMaria.Controllers;
@@ -15,7 +15,7 @@ public class PedidosController : ControllerBase
         this.pedidoRepository = pedidoRepository;
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Pedido>>> Get()
+    public async Task<ActionResult<IList<Pedido>>> Get()
     {
         var pedidos = (await pedidoRepository.FindAll()).ToList();
         foreach (var pedido in pedidos)
@@ -37,11 +37,46 @@ public class PedidosController : ControllerBase
         return Ok(pedido);
     }
 
+    [HttpGet("cliente/{id}")]
+    public async Task<ActionResult<IList<Pedido>>> GetOrdersClienteById(int id)
+    {
+        var pedidos = (await pedidoRepository.GetCustomerOrders(id)).ToList();
+        foreach (var pedido in pedidos)
+        {
+            pedido.Total = pedido.Items.Sum(i => i.Valor);
+        }
+        return Ok(pedidos);
+    }
+
+    [HttpGet("Aberto/Cliente/{id}")]
+    public async Task<ActionResult<Pedido>> GetOrderOpenClienteById(int id)
+    {
+        var pedido = (await pedidoRepository.GetCustomerOrderOpen(id));
+        if (pedido is not null)
+        {
+            return Ok(pedido);
+        }
+        return NotFound();
+    }
+
     [HttpPost]
     public async Task<ActionResult> Post(Pedido pedido)
     {
-        pedido.Total = pedido.Items.Sum(i => i.Valor);
+        var pedidoOpen = await pedidoRepository.GetCustomerOrderOpen(pedido.Cliente.Id);
 
+        if (pedidoOpen is not null)
+        {
+            return Conflict("Já tem um pedido aberto");
+        }
+
+        var registerService = new PedidoRegistrationValidationService(pedido);
+
+        if (!registerService.Validate())
+        {
+            return StatusCode(422, registerService.InvalidResponses());
+        }
+
+        pedido.Total = pedido.Items.Sum(i => i.Valor);
         await pedidoRepository.Add(pedido);
         return Ok(pedido);
     }

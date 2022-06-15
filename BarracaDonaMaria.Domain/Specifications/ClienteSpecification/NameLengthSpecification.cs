@@ -1,6 +1,6 @@
 ﻿using BarracaDonaMaria.Domain.Entities;
 
-namespace BarracaDonaMaria.Domain.Specifications.Clientes;
+namespace BarracaDonaMaria.Domain.Specifications.ClienteSpecification;
 
 public class NameLengthSpecification : ISpecification<Cliente>
 {

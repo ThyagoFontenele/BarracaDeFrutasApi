@@ -18,7 +18,6 @@ public class ItemPedidoController : ControllerBase
     public async Task<ActionResult<IEnumerable<ItemPedido>>> Get() =>
         (await itemPedidoRepository.FindAll()).ToList();
 
-
     [HttpGet("{id}")]
     public async Task<ActionResult<ItemPedido>> GetById(int id)
     {
@@ -36,6 +35,7 @@ public class ItemPedidoController : ControllerBase
         {
             return BadRequest("Quantidade tem que ser maior que 0");
         }
+        
         itemPedido.Valor = itemPedido.Quantidade * itemPedido.Produto.Preco;
         await itemPedidoRepository.Add(itemPedido);
         return Ok(itemPedido);
@@ -63,6 +63,7 @@ public class ItemPedidoController : ControllerBase
             return Problem("Quantidade tem que ser maior que 0");
         }
         itemPedido.Valor = itemPedido.Quantidade * itemPedido.Produto.Preco;
+
         await itemPedidoRepository.Update(itemPedido);
         return Ok(itemPedido);
     }

@@ -36,14 +36,6 @@ public class NHibernateHelper
         await _session.GetCurrentTransaction()?.RollbackAsync();
     }
 
-    public static void CloseSessionFactory()
-    {
-        if (_sessionFactory != null)
-        {
-            _sessionFactory.Close();
-        }
-    }
-
     public static ISessionFactory FluentConfigure()
     {
         ISessionFactory sessionFactory = Fluently.Configure()

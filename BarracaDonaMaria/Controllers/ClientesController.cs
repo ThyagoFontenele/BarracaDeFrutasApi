@@ -1,6 +1,6 @@
 ﻿using BarracaDonaMaria.Domain.Entities;
 using BarracaDonaMaria.Domain.Repositories;
-using BarracaDonaMaria.Domain.Specifications.Clientes;
+using BarracaDonaMaria.Domain.Specifications.ClienteSpecification;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BarracaDonaMaria.Controllers;
@@ -52,6 +52,7 @@ public class ClientesController : ControllerBase
         }
         await clienteRepository.Remove(cliente);
         return Ok(cliente);
+     
     }
 
     [HttpPut]
