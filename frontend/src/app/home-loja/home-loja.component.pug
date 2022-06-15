@@ -1,0 +1,13 @@
+.divRegistra
+  p(class="titulo") Produtos
+  a(class="registrar", routerLink="/registrar/produto") Registrar Produtos +
+.produtos
+  ul
+    a(*ngFor="let produto of produtos", [routerLink]="['produto', produto.id]")
+      li.listaProdutos
+        img(src="{{produto.imgUrl}}")
+        div
+          p {{produto.nome}}
+          p R$ {{produto.preco}}
+          span Unidades restantes: {{produto.unidades}}
+        button Comprar

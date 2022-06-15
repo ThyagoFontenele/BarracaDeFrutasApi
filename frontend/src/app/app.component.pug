@@ -1,0 +1,20 @@
+header
+  div
+    a.titulo(routerLink="") Sacolão Digital
+    ul(*ngIf="logado; else deslogado")
+      li
+        a(routerLink="") Produtos
+      li
+        a(routerLink="/carrinho") Carrinho
+      li
+        a(routerLink="/perfil") Perfil
+      li
+        a(routerLink="") Sair
+    ng-template(#deslogado)
+      ul
+        li
+          a(routerLink="") Produtos
+        li
+          a(routerLink="/login") Login
+.main
+  router-outlet

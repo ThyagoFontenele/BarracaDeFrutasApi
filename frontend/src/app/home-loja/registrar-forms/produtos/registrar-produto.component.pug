@@ -1,0 +1,19 @@
+h1 Registrar Produto
+form([formGroup]="produtoForm", (ngSubmit)="onSubmit()")
+  .content
+    div
+      label Nome
+      input(type="text",formControlName="nome", (focusout)="findError('nome')")
+    div
+      label Tipo
+      input(type="text", formControlName="tipo", (focusout)="findError('tipo')")
+    div
+      label Unidades
+      input(type="number", formControlName="unidades", (focusout)="findError('unidades')")
+    div
+      label Preco
+      input(type="number", formControlName="preco", (focusout)="findError('preco')")
+    div
+      label ImgUrl
+      input(type="text", formControlName="imgUrl", (focusout)="findError('imgUrl')")
+  button(type="submit", [disabled]="!produtoForm.valid") Cadastrar

@@ -1,0 +1,19 @@
+h1 Registrar Usuário
+form([formGroup]="usuarioForm", (ngSubmit)="onSubmit()")
+  .content
+    div
+      label Nome
+      input(type="text", formControlName="nome", (focusout)="findError('nome')")
+    div
+      label Endereco
+      input(type="text", formControlName="endereco", (focusout)="findError('endereco')")
+    div
+      label Cpf
+      input(type="text", formControlName="cpf", (focusout)="findError('cpf')")
+    div
+      label Telefone
+      input(type="text", formControlName="telefone", (focusout)="findError('telefone')")
+    div
+      label Saldo
+      input(type="number", formControlName="saldo", (focusout)="findError('saldo')")
+  button(type="submit", [disabled]="!usuarioForm.valid") Cadastrar

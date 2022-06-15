@@ -1,0 +1,8 @@
+.Registra
+  p(class="titulo") Usuários
+  a(class="registrar", routerLink="/registrar/usuario") Registrar Usuários +
+section
+  ul
+    li(*ngFor="let usuario of usuarios")
+      span {{usuario.nome}}
+      button(title=`Logar com {{usuario.nome}}`, (click)="logar(usuario)") Logar
