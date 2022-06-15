@@ -1,6 +1,7 @@
 .vscode
 vs
 bin
+node_modules
 obj
 /obj
 /bin
@@ -33,3 +34,4 @@ testem.log
 /typings
 .DS_Store
 Thumbs.db
+.angular
