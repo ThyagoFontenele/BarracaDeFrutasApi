@@ -1,2 +1,2 @@
 My first fullstack application. 
-Where I created the API with C# using Domain Driven Design, database and frontend with Angular.
+Where I created the REST API with ASP.NET using Domain Driven Design and the frontend framework Angular.
